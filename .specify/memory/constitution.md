@@ -3,6 +3,8 @@
 > **Version:** 1.0.0
 > **Ratified:** 2026-03-03
 > **Status:** Active
+> **Inherits:** [crunchtools/constitution](https://github.com/crunchtools/constitution) v1.0.0
+> **Profile:** MCP Server
 
 This constitution establishes the core principles, constraints, and workflows that govern all development on mcp-google-search-console-crunchtools.
 
@@ -115,7 +117,31 @@ Every Pydantic model in `models.py` MUST have tests in `test_validation.py`.
 
 ---
 
-## IV. Code Quality Gates
+## IV. Gourmand (AI Slop Detection)
+
+All code MUST pass `gourmand --full .` with **zero violations** before merge. Gourmand is a CI gate in GitHub Actions.
+
+### Configuration
+
+- `gourmand.toml` — Check settings, excluded paths
+- `gourmand-exceptions.toml` — Documented exceptions with justifications
+- `.gourmand-cache/` — Must be in `.gitignore`
+
+### Exception Policy
+
+Exceptions MUST have documented justifications in `gourmand-exceptions.toml`. Acceptable reasons:
+- Standard API patterns (HTTP status codes, pagination params)
+- Test-specific patterns (intentional invalid input)
+- Framework requirements (CLAUDE.md for Claude Code)
+
+Unacceptable reasons:
+- "The code is special"
+- "The threshold is too strict"
+- Rewording to avoid detection
+
+---
+
+## V. Code Quality Gates
 
 Every code change must pass through these gates in order:
 
@@ -127,7 +153,7 @@ Every code change must pass through these gates in order:
 
 ---
 
-## V. Naming Conventions
+## VI. Naming Conventions
 
 | Context | Name |
 |---------|------|
@@ -142,7 +168,29 @@ Every code change must pass through these gates in order:
 
 ---
 
-## VI. Governance
+## VII. Development Workflow
+
+### Adding a New Tool
+
+1. Add the async function to the appropriate `tools/*.py` file
+2. Export it from `tools/__init__.py`
+3. Import it in `server.py` and register with `@mcp.tool()`
+4. Add a mocked test in `tests/test_tools.py`
+5. Update the tool count in `test_tool_count`
+6. Run all five quality gates
+7. Update CLAUDE.md tool listing
+
+### Adding a New Tool Group
+
+1. Create `tools/new_group.py` with async functions
+2. Add imports and `__all__` entries in `tools/__init__.py`
+3. Add `@mcp.tool()` wrappers in `server.py`
+4. Add a `TestNewGroupTools` class in `tests/test_tools.py`
+5. Run all five quality gates
+
+---
+
+## VIII. Governance
 
 ### Amendment Process
 
