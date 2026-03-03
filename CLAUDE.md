@@ -29,11 +29,13 @@ claude mcp add mcp-google-search-console-crunchtools \
 
 ## OAuth Setup
 
-1. Go to Google Cloud Console > APIs & Services > Credentials
-2. Create or reuse an OAuth 2.0 Client ID (Desktop application type)
-3. Enable the Search Console API under APIs & Services > Library
-4. Run a one-time consent flow to obtain a refresh_token with `https://www.googleapis.com/auth/webmasters` scope
-5. Store the client ID, client secret, and refresh token as environment variables
+One-time setup — see README.md for the full walkthrough:
+1. Create a Google Cloud project and enable the Search Console API
+2. Create an OAuth 2.0 Client ID (Desktop app type) to get `GSC_CLIENT_ID` and `GSC_CLIENT_SECRET`
+3. Run a browser consent flow to get `GSC_REFRESH_TOKEN` (redirect goes to `http://127.0.0.1`, copy the code from the URL bar, exchange it via curl)
+4. Store all three in `~/.config/mcp-env/mcp-google-search-console.env`
+
+At runtime, the server exchanges the refresh token for short-lived access tokens automatically. The refresh token never expires unless revoked.
 
 ## Environment Variables
 
