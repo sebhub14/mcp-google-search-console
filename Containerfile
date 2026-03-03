@@ -19,7 +19,10 @@ LABEL name="mcp-google-search-console-crunchtools" \
       maintainer="crunchtools.com" \
       url="https://github.com/crunchtools/mcp-google-search-console" \
       io.k8s.display-name="MCP Google Search Console CrunchTools" \
-      io.openshift.tags="mcp,google-search-console,seo"
+      io.openshift.tags="mcp,google-search-console,seo" \
+      org.opencontainers.image.source="https://github.com/crunchtools/mcp-google-search-console" \
+      org.opencontainers.image.description="Secure MCP server for Google Search Console" \
+      org.opencontainers.image.licenses="AGPL-3.0-or-later"
 
 # Set working directory
 WORKDIR /app
