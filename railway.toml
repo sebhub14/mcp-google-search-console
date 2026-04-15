@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+buildCommand = "pip install -e ."
+
+[deploy]
+startCommand = "python -m mcp_google_search_console.server --transport streamable-http --host 0.0.0.0 --port 8000"
+restartPolicyType = "on_failure"
