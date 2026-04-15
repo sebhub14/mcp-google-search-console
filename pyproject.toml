@@ -7,7 +7,7 @@ license = "AGPL-3.0-or-later"
 authors = [
     { name = "crunchtools.com" }
 ]
-readme = "README.md"
+
 keywords = ["mcp", "google-search-console", "seo", "fastmcp"]
 classifiers = [
     "Development Status :: 4 - Beta",
